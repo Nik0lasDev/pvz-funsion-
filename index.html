@@ -67,7 +67,7 @@ if(selected==='cherry')plants[plants.length-1].fuse=0.8;
 selected=null;render();ui();
 }
 let toastTimer;function toast(msg){$('statusText').textContent=msg;clearTimeout(toastTimer);toastTimer=setTimeout(ui,1300)}
-function spawnZombie(){if(kills>=18&&zombies.length===0){finish(true);return}const row=Math.floor(Math.random()*H);zombies.push({row,x:W+.15,hp:Math.random()<.22?560:270,maxHp:560,max:270,speed:.075+Math.random()*.02,bite:0,hit:0});}
+function spawnZombie(){if(kills>=18&&zombies.length===0){finish(true);return}const row=Math.floor(Math.random()*H);const armored=Math.random()<.22;zombies.push({row,x:W+.15,hp:armored?560:270,maxHp:armored?560:270,max:armored?560:270,speed:armored?.065:.085,bite:0,hit:0});}
 function spawnSun(x,y){suns.push({x,y,life:9});}
 function start(){sun=50;plants=[];zombies=[];shots=[];suns=[];mowers=Array.from({length:H},(_,row)=>({row,active:true,used:false}));elapsed=0;last=performance.now();spawnTimer=5;sunTimer=10;kills=0;running=true;paused=false;ended=false;won=false;selected=null;$('overlay').classList.add('hidden');$('startBtn').textContent='Reiniciar';ui();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
 function finish(victory){running=false;ended=true;won=victory;$('overlay').classList.remove('hidden');$('dialogTitle').textContent=victory?'Você venceu!':'Fim de jogo';$('dialogText').textContent=victory?'Todos os zumbis foram derrotados. Seu jardim está seguro.':'Um zumbi atravessou o gramado. Tente outra estratégia e proteja cada fileira.';$('dialogBtn').textContent='Jogar novamente';ui()}
